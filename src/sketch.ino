@@ -1,3 +1,5 @@
+//Sketch for a light dependent resistor (LDR) module
+
 //Global variables
 int LDRValue; //LDR value
 int light_sensitivity = 20; //Thresold value
