@@ -1,7 +1,7 @@
 #define LED_PIN12 12
 #define LED_PIN13 13
 
-# I just alternate lighting two LEDs!
+// I just alternate lighting two LEDs!
 void setup()
 {
     pinMode(LED_PIN12, OUTPUT);

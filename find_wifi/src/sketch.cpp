@@ -3,6 +3,7 @@
 #include <WiFi.h>
 void setup();
 void loop();
+void printIPAddress();
 void printMacAddress();
 void listNetworks();
 
@@ -13,6 +14,9 @@ void setup() {
 
   // attempt to connect using WEP encryption:
   Serial.println("Initializing Wifi...");
+  //Serial.println("call printIPAddress");
+  //printIPAddress();
+  Serial.println("call printMacAddress");
   printMacAddress();
 
   // scan for existing networks:
@@ -27,12 +31,23 @@ void loop() {
   listNetworks();
 }
 
+void printIPAddress() {
+  // the IP address of my Wifi shield
+  IPAddress ip = WiFi.localIP();
+    Serial.print("IP address: ");
+  Serial.println(ip);
+  Serial.println(ip);
+}
+
 void printMacAddress() {
-  // the MAC address of your Wifi shield
+  // the MAC address of my Wifi shield
+  Serial.println(1);
   byte mac[6];                    
 
-  // print your MAC address:
+  Serial.println(2);
+  // print my MAC address:
   WiFi.macAddress(mac);
+  Serial.println("hey!");
   Serial.print("MAC: ");
   Serial.print(mac[5],HEX);
   Serial.print(":");
@@ -45,6 +60,7 @@ void printMacAddress() {
   Serial.print(mac[1],HEX);
   Serial.print(":");
   Serial.println(mac[0],HEX);
+  Serial.println(3);
 }
 
 void listNetworks() {
