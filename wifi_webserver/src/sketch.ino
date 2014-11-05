@@ -10,10 +10,16 @@ Project using my Arduino Uno, wifi Shield and light sensor
 #include <WiFi.h>
 
 // Global variables
+// for the server
 char ssid[] = "ODINET";
 char pass[] = "OpenData";
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
+
+// for the sensor
+int light_sensitivity = 20; //Thresold value
+int light_sensitivity2 = 10; //Thresold value
+float Rsensor; //Resistance of sensor
 
 void setup()
 {
@@ -63,20 +69,20 @@ void loop()
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
           client.println("Connection: close");  // the connection will be closed after completion of the response
-          client.println("Refresh: 5");  // refresh the page automatically every 5 sec
+          client.println("Refresh: 3");  // refresh the page automatically every 5 sec
           client.println();
           client.println("<!DOCTYPE HTML>");
           client.println("<html>");
 
         // code to get the sensor data from analog pin A0:
-        for (int analogChannel = 0; analogChannel < 6; analogChannel++) {
-            int sensorReading = analogRead(analogChannel);
+            int sensorReading = analogRead(0);
+            //Serial.println(sensorReading);
+            Rsensor = (float) (1023 - sensorReading) * 10 / sensorReading;
+            delay(100);
             client.print("analog input ");
-            client.print(analogChannel);
             client.print(" is ");
-            client.print(sensorReading);
+            client.print(Rsensor);
             client.println("<br />");      
-        }
 
         client.println("</html>");
            break;
