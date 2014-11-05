@@ -14,9 +14,7 @@ void setup() {
 
   // attempt to connect using WEP encryption:
   Serial.println("Initializing Wifi...");
-  //Serial.println("call printIPAddress");
-  //printIPAddress();
-  Serial.println("call printMacAddress");
+  printIPAddress();
   printMacAddress();
 
   // scan for existing networks:
@@ -41,13 +39,10 @@ void printIPAddress() {
 
 void printMacAddress() {
   // the MAC address of my Wifi shield
-  Serial.println(1);
   byte mac[6];                    
 
-  Serial.println(2);
   // print my MAC address:
   WiFi.macAddress(mac);
-  Serial.println("hey!");
   Serial.print("MAC: ");
   Serial.print(mac[5],HEX);
   Serial.print(":");
@@ -60,7 +55,6 @@ void printMacAddress() {
   Serial.print(mac[1],HEX);
   Serial.print(":");
   Serial.println(mac[0],HEX);
-  Serial.println(3);
 }
 
 void listNetworks() {
