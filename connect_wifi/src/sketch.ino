@@ -5,7 +5,7 @@
 
 //Global variables
 char ssid[] = "ODINET";
-char pass[] = "";
+char pass[] = "****";
 int status = WL_IDLE_STATUS;
 
 void setup()
@@ -13,14 +13,14 @@ void setup()
     Serial.begin(9600);
     // Try to connect 
     Serial.println("Attempting to connect...");
-    status = WiFi.begin(ssid);
+    status = WiFi.begin(ssid, pass);
     // If you're not connected
     if (status != WL_CONNECTED) {
         Serial.println("F#*@! Couldn't connect :[");
         while(true);
     }
     // If you're connected
-        Serial.println("You're connected 8-)");
+        Serial.println("Yay! You're connected 8-)");
 }
 
 void loop()
