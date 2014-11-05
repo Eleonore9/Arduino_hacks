@@ -11,8 +11,8 @@ Project using my Arduino Uno, wifi Shield and light sensor
 
 // Global variables
 // for the server
-char ssid[] = "ODINET";
-char pass[] = "OpenData";
+char ssid[] = "MyNetwork";
+char pass[] = "****";
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
 
