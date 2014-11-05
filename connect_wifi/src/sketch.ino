@@ -4,7 +4,7 @@
 
 
 //Global variables
-char ssid[] = "ODINET";
+char ssid[] = "My_network";
 char pass[] = "****";
 int status = WL_IDLE_STATUS;
 
