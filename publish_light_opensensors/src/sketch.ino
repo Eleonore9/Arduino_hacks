@@ -5,7 +5,7 @@
 
 // Global variables
 char ssid[] = "ODINET"; // Name of my WIFI network.
-char pass[] = "OpenData"
+char pass[] = "OpenData"; // WIFI network password
 byte mac[6]; // the MAC address of my Wifi shield.
 int status = WL_IDLE_STATUS;
 WiFiClient wifiClient; // Wireless client.
@@ -19,6 +19,7 @@ WiFiClient wifiClient; // Wireless client.
 int light_sensitivity = 20; //Thresold value
 int light_sensitivity2 = 10; //Thresold value
 float Rsensor; //Resistance of sensor
+char rLightSensor[10];
 
 OSIOClient osioClient(wifiClient, "Ele", "141", "g4d7PDWs");
 
@@ -71,18 +72,24 @@ void loop()
     // code to get the sensor data from analog pin A0:
     int sensorReading = analogRead(0);
     Rsensor = (float) (1023 - sensorReading) * 10 / sensorReading;
+    sprintf(rLightSensor, "%f", Rsensor);
     delay(100);
-    strcat(message, "Light intensity data ");
-    strcat(message, "- analog input: ");
-    strcat(message, Rsensor);
+    strcat(message, "Light intensity at ");
+    itoa(millis() / 1000, time, 10);
+    strcat(message, time);
+    strcat(message, " - analog input: ");
+    strcat(message, rLightSensor);
 
     if (osioClient.publish("/users/Ele/Light-intensity-ODI", message))
     {
-    Serial.println("Message published.");
+    Serial.print("Message published - resistance: ");
+    Serial.print(Rsensor);
+    Serial.print(" - converted to a char*: ");
+    Serial.println(Rsensor);
     }
     else
     {
     Serial.println("Error publishing message.");
     }
-    delay(50);
+    delay(1000);
 }
