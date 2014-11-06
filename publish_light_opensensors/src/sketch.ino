@@ -4,8 +4,8 @@
 #include <osio_client.h> // Include client library for OpenSensors.
 
 // Global variables
-char ssid[] = "ODINET"; // Name of my WIFI network.
-char pass[] = "OpenData"; // WIFI network password
+char ssid[] = "MyNetwork"; // Name of my WIFI network.
+char pass[] = "****"; // WIFI network password
 byte mac[6]; // the MAC address of my Wifi shield.
 int status = WL_IDLE_STATUS;
 WiFiClient wifiClient; // Wireless client.
@@ -73,7 +73,6 @@ void loop()
     int sensorReading = analogRead(0);
     Rsensor = (float) (1023 - sensorReading) * 10 / sensorReading;
     sprintf(rLightSensor, "%f", Rsensor);
-    delay(100);
     strcat(message, "Light intensity at ");
     itoa(millis() / 1000, time, 10);
     strcat(message, time);
@@ -91,5 +90,5 @@ void loop()
     {
     Serial.println("Error publishing message.");
     }
-    delay(1000);
+    delay(5000);
 }
