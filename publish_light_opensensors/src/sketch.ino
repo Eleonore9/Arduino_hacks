@@ -14,6 +14,7 @@ WiFiClient wifiClient; // Wireless client.
 // There are two optional parameters: callback (we need it is planning to read messages from topic),
 // server name (opensensors.io by default).
 // In this sample don't need to supply callback and use default server name.
+OSIOClient osioClient(wifiClient, "Ele", "141", "g4d7PDWs");
 
 // for the sensor
 int light_sensitivity = 20; //Thresold value
@@ -21,11 +22,10 @@ int light_sensitivity2 = 10; //Thresold value
 float Rsensor; //Resistance of sensor
 char rLightSensor[10];
 
-OSIOClient osioClient(wifiClient, "Ele", "141", "g4d7PDWs");
 
 void setup()
 {
-    //Initialize serial and wait for port to open:
+    //Initialize serial:
     Serial.begin(9600);
     Serial.println("Initializing...");
     while (!Serial);
@@ -45,7 +45,7 @@ void setup()
         status = WiFi.begin(ssid, pass);
         // wait 10 seconds for connection:
         delay(10000);
-        //print MAC address
+        //print MAC address:
         WiFi.macAddress(mac);
         Serial.print("MAC: ");
         Serial.print(mac[5],HEX);

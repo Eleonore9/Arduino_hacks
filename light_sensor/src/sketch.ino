@@ -2,7 +2,7 @@
 
 //Global variables
 int LDRValue; //LDR value
-int light_sensitivity = 20; //Thresold value
+int light_sensitivity = 40; //Thresold value
 int light_sensitivity2 = 10; //Thresold value
 float Rsensor; //Resistance of sensor
 
@@ -18,22 +18,25 @@ void loop()
     //Serial.println(LDRValue);
     Rsensor = (float) (1023 - LDRValue) * 10 / LDRValue;
     //Serial.println(Rsensor, DEC); 
-    delay(100); //Sets the speed by which LDR send a value to Arduino
+    delay(1000); //Sets the speed by which LDR send a value to Arduino
     if (Rsensor < light_sensitivity)
     {
         if (Rsensor < light_sensitivity2)
         {
-            Serial.println("The light is super bright!");
+            Serial.print(Rsensor);
+            Serial.println(" - The light is super bright!");
         }
         else
         {
         digitalWrite(13, HIGH);
-        Serial.println("The light is on");
+        Serial.print(Rsensor);
+        Serial.println(" - The light is on");
         }
     }
     else
     {
         digitalWrite(13, LOW);
-        Serial.println("The light is off");
+        Serial.print(Rsensor);
+        Serial.println(" - The light is off");
     }
 }
