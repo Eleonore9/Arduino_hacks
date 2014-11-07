@@ -4,7 +4,7 @@
 #include <osio_client.h> // Include client library for OpenSensors.
 
 // Global variables
-char ssid[] = "MyNetwork"; // Name of my WIFI network.
+char ssid[] = "CampusGuest"; // Name of my WIFI network.
 char pass[] = "****"; // WIFI network password
 byte mac[6]; // the MAC address of my Wifi shield.
 int status = WL_IDLE_STATUS;
@@ -39,12 +39,15 @@ void setup()
   
     // try to connect to WiFi network:
     while ( status != WL_CONNECTED) {
-        Serial.print("Attempting to connect to SSID: ");
+        Serial.print("Attempting to connect to network ");
         Serial.println(ssid);
         // connect to WPA/WPA2 network:    
-        status = WiFi.begin(ssid, pass);
+        //status = WiFi.begin(ssid, pass); //password needed
+        status = WiFi.begin(ssid); // no password needed
         // wait 10 seconds for connection:
         delay(10000);
+        Serial.print("Connected to ");
+        Serial.println(ssid);
         //print MAC address:
         WiFi.macAddress(mac);
         Serial.print("MAC: ");
@@ -72,8 +75,8 @@ void loop()
     // code to get the sensor data from analog pin A0:
     int sensorReading = analogRead(0);
     Rsensor = (float) (1023 - sensorReading) * 10 / sensorReading;
-    sprintf(rLightSensor, "%f", Rsensor);
-    strcat(message, "Light intensity at ");
+    sprintf(rLightSensor, "%f", Rsensor); // converts float to a string (here a char*)
+    strcpy(message, "Light intensity at ");
     itoa(millis() / 1000, time, 10);
     strcat(message, time);
     strcat(message, " - analog input: ");
@@ -83,7 +86,7 @@ void loop()
     {
     Serial.print("Message published - resistance: ");
     Serial.print(Rsensor);
-    Serial.print(" - converted to a char*: ");
+    Serial.print(" - converted to: ");
     Serial.println(Rsensor);
     }
     else
