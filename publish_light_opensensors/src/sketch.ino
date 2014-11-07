@@ -22,7 +22,6 @@ int light_sensitivity2 = 10; //Thresold value
 float Rsensor; //Resistance of sensor
 char rLightSensor[10];
 
-
 void setup()
 {
     //Initialize serial:
@@ -75,23 +74,25 @@ void loop()
     // code to get the sensor data from analog pin A0:
     int sensorReading = analogRead(0);
     Rsensor = (float) (1023 - sensorReading) * 10 / sensorReading;
-    sprintf(rLightSensor, "%f", Rsensor); // converts float to a string (here a char*)
+    //sprintf(rLightSensor, "%f", Rsensor); // converts float to a string (here a char*)
     strcpy(message, "Light intensity at ");
     itoa(millis() / 1000, time, 10);
     strcat(message, time);
-    strcat(message, " - analog input: ");
-    strcat(message, rLightSensor);
-
-    if (osioClient.publish("/users/Ele/Light-intensity-ODI", message))
-    {
-    Serial.print("Message published - resistance: ");
-    Serial.print(Rsensor);
-    Serial.print(" - converted to: ");
+    //strcat(message, " - analog input: ");
+    //strcat(message, rLightSensor);
+    //osioClient.publish("/users/Ele/test", message);
+    //if (osioClient.publish("/users/Ele/Light-intensity-ODI", message))
+    //{
+    Serial.print("measurement: ");
+    Serial.println(sensorReading);
+    Serial.print("resistance: ");
     Serial.println(Rsensor);
-    }
-    else
-    {
-    Serial.println("Error publishing message.");
-    }
+    //Serial.print(" - converted to: ");
+    //Serial.println(rLightSensor);
+    //}
+    //else
+    //{
+    //Serial.println("Error publishing message.");
+    //}
     delay(5000);
 }
