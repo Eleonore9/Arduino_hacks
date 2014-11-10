@@ -4,7 +4,7 @@
 #include <osio_client.h> // Include client library for OpenSensors.
 
 // Global variables
-char ssid[] = "CampusGuest"; // Name of my WIFI network.
+char ssid[] = "MyNetwork"; // Name of my WIFI network.
 char pass[] = "****"; // WIFI network password
 byte mac[6]; // the MAC address of my Wifi shield.
 int status = WL_IDLE_STATUS;
@@ -41,8 +41,8 @@ void setup()
         Serial.print("Attempting to connect to network ");
         Serial.println(ssid);
         // connect to WPA/WPA2 network:    
-        //status = WiFi.begin(ssid, pass); //password needed
-        status = WiFi.begin(ssid); // no password needed
+        status = WiFi.begin(ssid, pass); //password needed
+        //status = WiFi.begin(ssid); // no password needed
         // wait 10 seconds for connection:
         delay(10000);
         Serial.print("Connected to ");
@@ -80,7 +80,7 @@ void loop()
     strcat(message, time);
     //strcat(message, " - analog input: ");
     //strcat(message, rLightSensor);
-    //osioClient.publish("/users/Ele/test", message);
+    osioClient.publish("/users/Ele/Light-intensity-ODI", message);
     //if (osioClient.publish("/users/Ele/Light-intensity-ODI", message))
     //{
     Serial.print("measurement: ");
