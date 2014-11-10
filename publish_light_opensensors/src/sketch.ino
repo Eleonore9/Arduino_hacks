@@ -17,8 +17,8 @@ WiFiClient wifiClient; // Wireless client.
 OSIOClient osioClient(wifiClient, "Ele", "141", "g4d7PDWs");
 
 // for the sensor
-int light_sensitivity = 20; //Thresold value
-int light_sensitivity2 = 10; //Thresold value
+//int light_sensitivity = 20; //Thresold value
+//int light_sensitivity2 = 10; //Thresold value
 float Rsensor; //Resistance of sensor
 char rLightSensor[10];
 
@@ -81,12 +81,11 @@ void loop()
     //strcat(message, " - analog input: ");
     //strcat(message, rLightSensor);
     //osioClient.publish("/users/Ele/Light-intensity-ODI", message);
-    delay(5000);
     //if (osioClient.publish("/users/Ele/Light-intensity-ODI", message))
     //{
-    Serial.print("measurement: ");
+    Serial.print("measurement, ");
     Serial.println(sensorReading);
-    Serial.print("resistance: ");
+    Serial.print("resistance; ");
     Serial.println(Rsensor);
     //Serial.print(" - converted to: ");
     //Serial.println(rLightSensor);

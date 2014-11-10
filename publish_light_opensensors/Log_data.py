@@ -13,7 +13,7 @@ def logSensors():
     serialConnection = serial.Serial( SERIAL_PORT, timeout=2.0 )
     
     # open the output file (for appending)
-    outputFile = open( "test_lightsensor.csv", "r+" )
+    outputFile = open( "test_lightsensor.csv", "a" )
     
     # write the date and time to keep track of things
     outputFile.write(str(datetime.now()) + '\n')
