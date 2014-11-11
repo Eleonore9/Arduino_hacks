@@ -4,8 +4,8 @@
 #include <osio_client.h> // Include client library for OpenSensors.
 
 // Global variables
-char ssid[] = ""; // Name of my WIFI network.
-char pass[] = ""; // WIFI network password
+char ssid[] = "ODINET"; // Name of my WIFI network.
+char pass[] = "OpenData"; // WIFI network password
 byte mac[6]; // the MAC address of my Wifi shield.
 int status = WL_IDLE_STATUS;
 WiFiClient wifiClient; // Wireless client.
@@ -23,7 +23,7 @@ void setup()
 {
     //Initialize serial:
     Serial.begin(9600);
-    Serial.println("Initializing...");
+    //Serial.println("Initializing...");
     while (!Serial);
 
     // check for the presence of the shield:
@@ -35,14 +35,14 @@ void setup()
   
     // try to connect to WiFi network:
     while ( status != WL_CONNECTED) {
-        Serial.print("Attempting to connect to network ");
-        Serial.println(ssid);
+        //Serial.print("Attempting to connect to network ");
+        //Serial.println(ssid);
         // connect to WPA/WPA2 network:    
         status = WiFi.begin(ssid, pass); //password needed
         // wait 10 seconds for connection:
         delay(10000);
-        Serial.print("Connected to ");
-        Serial.println(ssid);
+        //Serial.print("Connected to ");
+        //Serial.println(ssid);
     }
 }
 
@@ -63,14 +63,19 @@ void loop()
     float voltage = reading * 5.0;
     voltage /= 1024.0; 
      
+    // print out the voltage
+    //Serial.print(voltage); 
+    //Serial.println(" volts");
+    
     // now print out the temperature
     float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset
                                                    //to degrees ((volatge - 500mV) times 100)
-    Serial.print(temperatureC); Serial.print(" degrees C - ");
+    Serial.println(temperatureC); 
+    //Serial.print(" degrees C - ");
      
     // now convert to Fahrenheight
     float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
-    Serial.print(temperatureF); Serial.println(" degrees F");
+    //Serial.print(temperatureF); //Serial.println(" degrees F");
     
     //Convert temperature:
     sprintf(tempC, "%f", temperatureC); // converts float to a string
@@ -86,13 +91,13 @@ void loop()
     strcat(message, tempF);
     strcat(message, " degrees F");
 
-    if (osioClient.publish("/users/Ele/Temp-ODI", message))
-    {
-    Serial.println("Message published!");
-    }
-    else
-    {
-    Serial.println("Error publishing message.");
-    }
-    delay(2000);
+    //if (osioClient.publish("/users/Ele/Temp-ODI", message))
+    //{
+    //Serial.println("Message published!");
+    //}
+    //else
+    //{
+    //Serial.println("Error publishing message.");
+    //}
+    delay(200);
 }
