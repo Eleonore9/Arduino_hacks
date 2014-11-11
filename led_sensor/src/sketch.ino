@@ -7,8 +7,8 @@
 
 
 // Global variables
-char ssid[] = "ODINET"; // Name of my WIFI network.
-char pass[] = "OpenData"; // WIFI network password
+char ssid[] = ""; // Name of my WIFI network.
+char pass[] = ""; // WIFI network password
 int status = WL_IDLE_STATUS;
 WiFiClient wifiClient; // Wireless client.
 // Instance of client library class.
