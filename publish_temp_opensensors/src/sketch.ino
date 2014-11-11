@@ -17,10 +17,7 @@ WiFiClient wifiClient; // Wireless client.
 OSIOClient osioClient(wifiClient, "Ele", "141", "g4d7PDWs");
 
 // for the sensor
-//int light_sensitivity = 20; //Thresold value
-//int light_sensitivity2 = 10; //Thresold value
-float Rsensor; //Resistance of sensor
-char rLightSensor[10];
+int sensorpin = 0;
 
 void setup()
 {
@@ -42,25 +39,10 @@ void setup()
         Serial.println(ssid);
         // connect to WPA/WPA2 network:    
         status = WiFi.begin(ssid, pass); //password needed
-        //status = WiFi.begin(ssid); // no password needed
         // wait 10 seconds for connection:
         delay(10000);
         Serial.print("Connected to ");
         Serial.println(ssid);
-        //print MAC address:
-        WiFi.macAddress(mac);
-        Serial.print("MAC: ");
-        Serial.print(mac[5],HEX);
-        Serial.print(":");
-        Serial.print(mac[4],HEX);
-        Serial.print(":");
-        Serial.print(mac[3],HEX);
-        Serial.print(":");
-        Serial.print(mac[2],HEX);
-        Serial.print(":");
-        Serial.print(mac[1],HEX);
-        Serial.print(":");
-        Serial.println(mac[0],HEX);
     }
 }
 
@@ -71,28 +53,46 @@ void loop()
     memset(message, 0, 255);
     memset(time, 0, 50);    
 
-    // code to get the sensor data from analog pin A0:
-    int sensorReading = analogRead(0);
-    Rsensor = (float) (1023 - sensorReading) * 10 / sensorReading;
-    //sprintf(Rsensor, "%f", rLightSensor); // converts float to a string (here a char*)
+    char tempC [33];
+    char tempF [33];
+
+    //getting the voltage reading from the temperature sensor
+    int reading = analogRead(sensorpin);  
+     
+    // converting that reading to voltage, for 3.3v arduino use 3.3
+    float voltage = reading * 3.3;
+    voltage /= 1024.0; 
+     
+    // now print out the temperature
+    float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset
+                                                   //to degrees ((volatge - 500mV) times 100)
+    Serial.print(temperatureC); Serial.println(" degrees C");
+     
+    // now convert to Fahrenheight
+    float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
+    Serial.print(temperatureF); Serial.println(" degrees F");
+    
+    //Convert temperature:
+    sprintf(tempC, "%f", temperatureC); // converts float to a string
+    sprintf(tempF, "%f", temperatureF); // converts float to a string
+    
+    //Building the message:
     strcpy(message, "Light intensity at ");
     itoa(millis() / 1000, time, 10);
     strcat(message, time);
-    //strcat(message, " - analog input: ");
-    //strcat(message, rLightSensor);
-    //osioClient.publish("/users/Ele/Light-intensity-ODI", message);
-    //if (osioClient.publish("/users/Ele/Light-intensity-ODI", message))
-    //{
-    Serial.print("measurement, ");
-    Serial.println(sensorReading);
-    Serial.print("resistance; ");
-    Serial.println(Rsensor);
-    //Serial.print(" - converted to: ");
-    //Serial.println(rLightSensor);
-    //}
-    //else
-    //{
-    //Serial.println("Error publishing message.");
-    //}
-    delay(5000);
+    strcat(message, " - Temp: ");
+    strcat(message, tempC);
+    strcat(message, " degrees C = ");
+    strcat(message, tempF);
+    strcat(message, " degrees F");
+
+    if (osioClient.publish("/users/Ele/Temp-ODI", message))
+    {
+    Serial.println("Message published!");
+    }
+    else
+    {
+    Serial.println("Error publishing message.");
+    }
+    delay(2000);
 }

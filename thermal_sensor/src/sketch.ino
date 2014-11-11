@@ -1,4 +1,4 @@
-int sensorPin = 0; //the analog pin the TMP36's Vout (sense) pin is connected to
+int sensorpin = 0; //the analog pin the tmp36's vout (sense) pin is connected to
                         //the resolution is 10 mV / degree centigrade with a
                         //500 mV offset to allow for negative temperatures
  
@@ -18,7 +18,7 @@ void loop()                     // run over and over again
  int reading = analogRead(sensorPin);  
  
  // converting that reading to voltage, for 3.3v arduino use 3.3
- float voltage = reading * 5.0;
+ float voltage = reading * 3.3;
  voltage /= 1024.0; 
  
  // print out the voltage
