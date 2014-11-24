@@ -4,8 +4,8 @@
 #include <osio_client.h> // Include client library for OpenSensors.
 
 // Global variables
-char ssid[] = "ODINET"; // Name of my WIFI network.
-char pass[] = "OpenData"; // WIFI network password
+char ssid[] = ""; // Name of my WIFI network.
+char pass[] = ""; // WIFI network password
 byte mac[6]; // the MAC address of my Wifi shield.
 int status = WL_IDLE_STATUS;
 WiFiClient wifiClient; // Wireless client.
@@ -64,8 +64,8 @@ void loop()
     voltage /= 1024.0; 
      
     // print out the voltage
-    //Serial.print(voltage); 
-    //Serial.println(" volts");
+    Serial.print(voltage); 
+    Serial.println(" volts");
     
     // now print out the temperature
     float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset
@@ -91,13 +91,13 @@ void loop()
     strcat(message, tempF);
     strcat(message, " degrees F");
 
-    //if (osioClient.publish("/users/Ele/Temp-ODI", message))
-    //{
-    //Serial.println("Message published!");
-    //}
+    if (osioClient.publish("/users/Ele/Temp-ODI", message))
+    {
+    Serial.println("Message published!");
+    }
     //else
     //{
     //Serial.println("Error publishing message.");
     //}
-    delay(200);
+    delay(500);
 }
