@@ -13,7 +13,7 @@ WiFiClient wifiClient; // Wireless client.
 // There are two optional parameters: callback (we need it is planning to read messages from topic),
 // server name (opensensors.io by default).
 // In this sample don't need to supply callback and use default server name.
-OSIOClient osioClient(wifiClient, "Ele", "141", "g4d7PDWs");
+OSIOClient osioClient(wifiClient, "Ele", "252", "y2cfUEHg");
 
 
 char light_char[10];
