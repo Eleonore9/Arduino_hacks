@@ -14,11 +14,11 @@ void setup()
 
 void loop()
 {
-    LDRValue = analogRead(0);//Reads LDR values at A0
+    LDRValue = analogRead(1);//Reads LDR values at A0
     //Serial.println(LDRValue);
     Rsensor = (float) (1023 - LDRValue) * 10 / LDRValue;
     //Serial.println(Rsensor, DEC); 
-    delay(1000); //Sets the speed by which LDR send a value to Arduino
+    delay(1500); //Sets the speed by which LDR send a value to Arduino
     if (Rsensor < light_sensitivity)
     {
         if (Rsensor < light_sensitivity2)
