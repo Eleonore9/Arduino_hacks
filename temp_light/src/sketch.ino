@@ -1,3 +1,6 @@
+char light_char[10];
+char temp_char[10];
+
 //Global variables ligth sensor
 int sensorlight = 2;
 
@@ -27,10 +30,16 @@ void loop()
     //delay(1000);    
 
     // Printing stuffs:
-    Serial.print("Light: ");
-    Serial.print(lightInt);
-    Serial.print(", Temp: ");
-    Serial.println(temperatureC);
+    //Serial.print("Light: ");
+    //Serial.print(lightInt);
+    //Serial.print(", Temp: ");
+    //Serial.println(temperatureC);
 
-    delay(1000);
+    dtostrf(lightInt, 2, 2, light_char);
+    dtostrf(temperatureC, 2, 2, temp_char);    
+
+    String csvline = String(light_char) + "," + String(temp_char);
+    Serial.println(csvline);
+
+    delay(800);
 }
