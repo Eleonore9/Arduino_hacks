@@ -1,6 +1,6 @@
-int sensorpin = 1; //the analog pin the tmp36's vout (sense) pin is connected to
-                   //the resolution is 10 mV / degree centigrade with a
-                   //500 mV offset to allow for negative temperatures
+#include <Time.h> 
+
+int sensorpin = 0; //Pin for the temperature sensor
  
 void setup()
 {
@@ -17,13 +17,17 @@ void loop() // run over and over again
     float voltage = reading * 5.0;
     voltage /= 1024.0; 
      
-    // print out the voltage
+    //print out the voltage
     //Serial.print(voltage); 
     //Serial.println(" volts");
      
     // now print out the temperature
     float temperatureC = (voltage - 0.5) * 100 ; //converting from 10 mv per degree wit 500 mV offset
                                                  //to degrees ((volatge - 500mV) times 100)
+    //Serial.print(hour());
+    //printDigits(minute());
+    //printDigits(second());
+    Serial.print(",");
     Serial.println(temperatureC); 
     //Serial.print(" degrees C * ");
      
